@@ -1,4 +1,5 @@
-# Clang / LLVM docker containers [![docker](https://img.shields.io/docker/pulls/silkeh/clang.svg)](https://hub.docker.com/r/silkeh/clang/)
+# Clang / LLVM docker containers
+[![docker](https://img.shields.io/docker/pulls/silkeh/clang.svg)](https://hub.docker.com/r/silkeh/clang/)
 
 A collection of images containing official Clang/LLVM releases.
 
@@ -18,3 +19,7 @@ Tags and corresponding docker files:
 - `4`: [/4/Dockerfile](https://github.com/silkeh/docker-clang/blob/master/4/Dockerfile)
 - `5`: [/5/Dockerfile](https://github.com/silkeh/docker-clang/blob/master/5/Dockerfile)
 - `6`: [/6/Dockerfile](https://github.com/silkeh/docker-clang/blob/master/6/Dockerfile)
+- `latest`: [/Dockerfile](https://github.com/silkeh/docker-clang/blob/master/Dockerfile)
+- `dev`: [/dev/Dockerfile](https://github.com/silkeh/docker-clang/blob/master/dev/Dockerfile)
+
+The `dev` tag contains a nightly build of the unstable branch from <https://apt.llvm.org/>.
