@@ -14,8 +14,8 @@ ENV GPG_KEYS 09C4E7007CB2EFFB A2C794A986419D8A B4468DF4E95C63DC D23DD2C20DD88BA2
 RUN gpg --keyserver pool.sks-keyservers.net --recv-keys $GPG_KEYS
 
 # Version info
-ENV LLVM_RELEASE {release}
-ENV LLVM_VERSION {version}
+ENV LLVM_RELEASE 3.2
+ENV LLVM_VERSION 3.2
 
 # Install Clang and LLVM
 COPY install.sh .
