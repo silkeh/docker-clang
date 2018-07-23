@@ -20,5 +20,5 @@ ENV LLVM_RELEASE 6
 ENV LLVM_VERSION 6.0.1
 
 # Install Clang and LLVM
-COPY install.sh .
+COPY ../install.sh .
 RUN ./install.sh

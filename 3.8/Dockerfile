@@ -20,5 +20,5 @@ ENV LLVM_RELEASE 3.8
 ENV LLVM_VERSION 3.8.1
 
 # Install Clang and LLVM
-COPY install.sh .
+COPY ../install.sh .
 RUN ./install.sh

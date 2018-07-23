@@ -20,5 +20,5 @@ ENV LLVM_RELEASE 5
 ENV LLVM_VERSION 5.0.2
 
 # Install Clang and LLVM
-COPY install.sh .
+COPY ../install.sh .
 RUN ./install.sh

@@ -20,5 +20,5 @@ ENV LLVM_RELEASE 4
 ENV LLVM_VERSION 4.0.1
 
 # Install Clang and LLVM
-COPY install.sh .
+COPY ../install.sh .
 RUN ./install.sh

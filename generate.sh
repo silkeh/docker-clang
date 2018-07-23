@@ -36,5 +36,6 @@ for v in $NEW_VERSIONS; do
   # Copy Dockerfile for latest version
   if [ "$v" == "$latest" ]; then
     cp "${rel}/Dockerfile" "./Dockerfile"
+    sed -i "s|\.\./|./|g" "./Dockerfile"
   fi
 done
