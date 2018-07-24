@@ -13,7 +13,8 @@ _create() {
   r="$2"
 
   mkdir -p "${r}"
-  cp "Dockerfile.template" "${r}/Dockerfile"
+  cp -a "Dockerfile.template" "${r}/Dockerfile"
+  cp -a "install.sh"          "${r}/install.sh"
 
   sed -i "s/{release}/$r/g" "${r}/Dockerfile"
   sed -i "s/{version}/$v/g" "${r}/Dockerfile"
@@ -36,6 +37,5 @@ for v in $NEW_VERSIONS; do
   # Copy Dockerfile for latest version
   if [ "$v" == "$latest" ]; then
     cp "${rel}/Dockerfile" "./Dockerfile"
-    sed -i "s|\.\./|./|g" "./Dockerfile"
   fi
 done
