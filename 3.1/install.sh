@@ -68,6 +68,9 @@ case "${ARCH}:${LLVM_VERSION}" in
 "x86_64:6.0.1")
   PLATFORM="linux-gnu-ubuntu-16.04"
   ;;
+"x86_64:7.0.0")
+  PLATFORM="linux-gnu-ubuntu-16.04"
+  ;;
 esac
 
 if [ -z ${DOWNLOAD_PLATFORM+x} ]; then
