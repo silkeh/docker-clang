@@ -5,7 +5,7 @@ REPO="silkeh/clang"
 
 # Build images
 for f in */Dockerfile; do
-  docker build . -f "$f" -t "${REPO}:$(dirname "$f")"
+  docker build --no-cache . -f "$f" -t "${REPO}:$(dirname "$f")"
 done
 
 # Show versions

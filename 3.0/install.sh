@@ -85,7 +85,7 @@ wget -nv -O "${DOWNLOAD_FILE}"     "${MIRROR}/${LLVM_VERSION}/${DOWNLOAD}"
 wget -nv -O "${DOWNLOAD_FILE}.sig" "${MIRROR}/${LLVM_VERSION}/${DOWNLOAD}.sig"
 
 # Verify
-gpg --verify "${DOWNLOAD_FILE}.sig" "${DOWNLOAD_FILE}"
+gpg --batch --verify "${DOWNLOAD_FILE}.sig" "${DOWNLOAD_FILE}"
 
 # Install
 echo "Installing ${TARGET}"

@@ -8,12 +8,10 @@ RUN apt-get -qq update; \
     rm -rf /var/lib/apt/lists/*
 
 # Signing keys
-ENV GPG_KEYS 09C4E7007CB2EFFB A2C794A986419D8A B4468DF4E95C63DC D23DD2C20DD88BA2 8F0871F202119294
+ENV GPG_KEYS 09C4E7007CB2EFFB A2C794A986419D8A B4468DF4E95C63DC D23DD2C20DD88BA2 8F0871F202119294 0FC3042E345AD05D
 
 # Retrieve keys
-RUN gpg --keyserver pool.sks-keyservers.net --recv-keys $GPG_KEYS \
-    || gpg --keyserver ha.pool.sks-keyservers.net --recv-keys $GPG_KEYS \
-    || gpg --keyserver ipv4.sks-keyservers.net --recv-keys $GPG_KEYS
+RUN gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys $GPG_KEYS
 
 # Version info
 ENV LLVM_RELEASE 3.5
