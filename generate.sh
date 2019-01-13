@@ -5,7 +5,7 @@ set -eou pipefail
 OLD_VERSIONS="2.9 3.0 3.1 3.2 3.3 3.4.2 3.5.2 3.6.2 3.7.1 3.8.1 3.9.1"
 
 # Versions using the new versioning scheme
-NEW_VERSIONS="4.0.1 5.0.2 6.0.1 7.0.0"
+NEW_VERSIONS="4.0.1 5.0.2 6.0.1 7.0.1"
 
 # Create a Dockerfile from template
 _create() {
