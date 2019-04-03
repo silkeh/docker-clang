@@ -59,16 +59,19 @@ case "${ARCH}:${LLVM_VERSION}" in
 "x86_64:3.9.1")
   PLATFORM="linux-gnu-debian8"
   ;;
-"x86_64:4.0.1")
+"x86_64:4.0."*)
   PLATFORM="linux-gnu-debian8"
   ;;
-"x86_64:5.0.2")
+"x86_64:5.0."*)
   PLATFORM="linux-gnu-ubuntu-16.04"
   ;;
-"x86_64:6.0.1")
+"x86_64:6.0."*)
   PLATFORM="linux-gnu-ubuntu-16.04"
   ;;
-"x86_64:7.0.1")
+"x86_64:7.0."*)
+  PLATFORM="linux-gnu-ubuntu-18.04"
+  ;;
+"x86_64:8.0."*)
   PLATFORM="linux-gnu-ubuntu-18.04"
   ;;
 esac
