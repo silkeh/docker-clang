@@ -3,7 +3,8 @@ FROM debian:stable
 # Install dependencies
 RUN apt-get -qq update; \
     apt-get install -qqy --no-install-recommends \
-        autoconf automake cmake dpkg-dev file git make patch libc-dev libc++-dev \
+        autoconf automake cmake dpkg-dev file git make patch \
+        libc-dev libc++-dev libgcc-6-dev libstdc++-6-dev  \
         dirmngr gnupg2 lbzip2 wget xz-utils; \
     rm -rf /var/lib/apt/lists/*
 
