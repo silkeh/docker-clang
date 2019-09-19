@@ -16,7 +16,7 @@ RUN gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys $GPG_KEYS
 
 # Version info
 ENV LLVM_RELEASE 8
-ENV LLVM_VERSION 8.0.0
+ENV LLVM_VERSION 8.0.1
 
 # Install Clang and LLVM
 COPY install.sh .
