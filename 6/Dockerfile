@@ -5,7 +5,7 @@ RUN apt-get -qq update; \
     apt-get install -qqy --no-install-recommends \
         autoconf automake cmake dpkg-dev file git make patch \
         libc-dev libc++-dev libgcc-7-dev libstdc++-7-dev  \
-        dirmngr gnupg2 lbzip2 wget xz-utils; \
+        dirmngr gnupg2 lbzip2 wget xz-utils libtinfo5; \
     rm -rf /var/lib/apt/lists/*
 
 # Signing keys
