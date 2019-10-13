@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 
 # Install dependencies
 RUN apt-get -qq update; \
@@ -10,9 +10,9 @@ RUN apt-get -qq update; \
 RUN wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
 
 # Install
-RUN echo "deb http://apt.llvm.org/stretch/ llvm-toolchain-stretch main" \
+RUN echo "deb http://apt.llvm.org/buster/ llvm-toolchain-buster main" \
         > /etc/apt/sources.list.d/llvm.list; \
     apt-get -qq update && \
-    apt-get install -qqy -t llvm-toolchain-stretch \
+    apt-get install -qqy -t llvm-toolchain-buster \
         clang clang-tidy clang-format lld llvm && \
     rm -rf /var/lib/apt/lists/*
