@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM {image}
 
 # Install dependencies
 RUN apt-get -qq update; \
