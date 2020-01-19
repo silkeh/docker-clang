@@ -75,7 +75,7 @@ case "${ARCH}:${LLVM_VERSION}" in
   PLATFORM="linux-gnu-ubuntu-18.04"
   ;;
 "x86_64:9.0."*)
-  PLATFORM="pc-linux-gnu"
+  PLATFORM="linux-gnu-ubuntu-18.04"
   ;;
 esac
 
