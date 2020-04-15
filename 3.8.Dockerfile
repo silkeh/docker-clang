@@ -3,6 +3,7 @@ FROM debian:buster
 # Install dependencies
 RUN apt-get -qq update; \
     apt-get install -qqy --no-install-recommends \
+        ca-certificates \
         autoconf automake cmake dpkg-dev file git make patch \
         libc-dev libc++-dev libgcc-7-dev libstdc++-7-dev  \
         dirmngr gnupg2 lbzip2 wget xz-utils libtinfo5; \
