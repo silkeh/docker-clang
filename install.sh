@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 set -eou pipefail
 
-MIRROR="http://releases.llvm.org"
-
 # Determine architecture
 ARCH=$(dpkg --print-architecture)
 
 # Default platform and download type
+MIRROR="llvm"
 PLATFORM="linux-gnu"
 PACKAGE_BASE="clang+llvm"
 DOWNLOAD_TYPE="tar.xz"
@@ -77,6 +76,19 @@ case "${ARCH}:${LLVM_VERSION}" in
 "x86_64:9.0."*)
   PLATFORM="linux-gnu-ubuntu-18.04"
   ;;
+"x86_64:10.0."*)
+  MIRROR="github"
+  PLATFORM="linux-gnu-ubuntu-18.04"
+  ;;
+esac
+
+case "${MIRROR}" in
+  "github")
+    MIRROR_URL="https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}"
+    ;;
+  "llvm")
+    MIRROR_URL="http://releases.llvm.org/${LLVM_VERSION}"
+    ;;
 esac
 
 if [ -z ${DOWNLOAD_PLATFORM+x} ]; then
@@ -90,8 +102,8 @@ DOWNLOAD_FILE="llvm.${DOWNLOAD_TYPE}"
 
 # Download
 echo "Downloading ${DOWNLOAD}"
-wget -nv -O "${DOWNLOAD_FILE}"     "${MIRROR}/${LLVM_VERSION}/${DOWNLOAD}"
-wget -nv -O "${DOWNLOAD_FILE}.sig" "${MIRROR}/${LLVM_VERSION}/${DOWNLOAD}.sig"
+wget -nv -O "${DOWNLOAD_FILE}"     "${MIRROR_URL}/${DOWNLOAD}"
+wget -nv -O "${DOWNLOAD_FILE}.sig" "${MIRROR_URL}/${DOWNLOAD}.sig"
 
 # Verify
 gpg --batch --verify "${DOWNLOAD_FILE}.sig" "${DOWNLOAD_FILE}"
@@ -102,4 +114,4 @@ tar xf "${DOWNLOAD_FILE}"
 cp -a "${TARGET}/"* "/usr/local/"
 
 # Cleanup
-rm -rf "${DOWNLOAD_FILE}" "${TARGET}/" install.sh
+rm -rf "${DOWNLOAD_FILE}" "${TARGET:?}/" install.sh
