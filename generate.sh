@@ -16,13 +16,10 @@ _create() {
   r="$2"
   d="${DOCKER_IMAGE}"
 
-  mkdir -p "${r}"
-  cp -a "Dockerfile.template" "${r}/Dockerfile"
-  cp -a "install.sh"          "${r}/install.sh"
-
-  sed -i "s/{release}/$r/g" "${r}/Dockerfile"
-  sed -i "s/{version}/$v/g" "${r}/Dockerfile"
-  sed -i "s/{image}/$d/g"  "${r}/Dockerfile"
+  cp -a "Dockerfile.template" "${r}.Dockerfile"
+  sed -i "s/{release}/$r/g"   "${r}.Dockerfile"
+  sed -i "s/{version}/$v/g"   "${r}.Dockerfile"
+  sed -i "s/{image}/$d/g"     "${r}.Dockerfile"
 }
 
 # Get latest version
@@ -41,6 +38,6 @@ for v in $NEW_VERSIONS; do
 
   # Copy Dockerfile for latest version
   if [ "$v" == "$latest" ]; then
-    cp "${rel}/Dockerfile" "./Dockerfile"
+    cp "${rel}.Dockerfile" "./Dockerfile"
   fi
 done
