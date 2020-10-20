@@ -23,6 +23,7 @@ Tags and corresponding docker files:
 - `8`: [/8.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/8.Dockerfile)
 - `9`: [/9.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/9.Dockerfile)
 - `10`: [/10.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/10.Dockerfile)
+- `11`: [/11.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/11.Dockerfile)
 - `latest`: [/Dockerfile](https://github.com/silkeh/docker-clang/blob/master/Dockerfile)
 - `dev`: [/dev.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/dev.Dockerfile)
 
