@@ -1,11 +1,11 @@
-FROM debian:buster
+FROM debian:bullseye
 
 # Install dependencies
 RUN apt-get -qq update; \
     apt-get install -qqy --no-install-recommends \
         ca-certificates \
         autoconf automake cmake dpkg-dev file git make patch \
-        libc-dev libc++-dev libgcc-8-dev libstdc++-8-dev  \
+        libc-dev libc++-dev libgcc-9-dev libstdc++-9-dev  \
         dirmngr gnupg2 lbzip2 wget xz-utils libtinfo5; \
     rm -rf /var/lib/apt/lists/*
 
