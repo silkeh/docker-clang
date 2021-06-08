@@ -5,10 +5,6 @@ A collection of images containing official Clang/LLVM releases.
 
 Tags and corresponding docker files:
 
-- `2.9`: [/2.9.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/2.9.Dockerfile)
-- `3.0`: [/3.0.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/3.0.Dockerfile)
-- `3.1`: [/3.1.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/3.1.Dockerfile)
-- `3.2`: [/3.2.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/3.2.Dockerfile)
 - `3.3`: [/3.3.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/3.3.Dockerfile)
 - `3.4`: [/3.4.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/3.4.Dockerfile)
 - `3.5`: [/3.5.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/3.5.Dockerfile)
@@ -24,6 +20,7 @@ Tags and corresponding docker files:
 - `9`: [/9.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/9.Dockerfile)
 - `10`: [/10.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/10.Dockerfile)
 - `11`: [/11.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/11.Dockerfile)
+- `12`: [/12.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/12.Dockerfile)
 - `latest`: [/Dockerfile](https://github.com/silkeh/docker-clang/blob/master/Dockerfile)
 - `dev`: [/dev.Dockerfile](https://github.com/silkeh/docker-clang/blob/master/dev.Dockerfile)
 
