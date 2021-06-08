@@ -9,14 +9,19 @@ NEW_VERSIONS="4.0.1 5.0.2 6.0.1 7.0.1 8.0.0 9.0.0 10.0.0 11.0.0 12.0.0"
 
 # Default docker image
 DOCKER_IMAGE="debian:bullseye"
+OLD_DOCKER_IMAGE="debian:buster"
+
+DEFAULT_TEMPLATE="Dockerfile.template"
+OLD_TEMPLATE="Dockerfile.old.template"
 
 # Create a Dockerfile from template
 _create() {
   v="$1"
   r="$2"
-  d="${DOCKER_IMAGE}"
+  d="$3"
+  t="$4"
 
-  cp -a "Dockerfile.template" "${r}.Dockerfile"
+  cp -a "$t" "${r}.Dockerfile"
   sed -i "s/{release}/$r/g"   "${r}.Dockerfile"
   sed -i "s/{version}/$v/g"   "${r}.Dockerfile"
   sed -i "s/{image}/$d/g"     "${r}.Dockerfile"
@@ -28,13 +33,13 @@ latest=$(<<< "${NEW_VERSIONS}" awk '{print $NF}')
 # Create Dockerfiles for the old versions
 for v in $OLD_VERSIONS; do
   rel=$(<<<$v grep -Po '[0-9]\.[0-9]')
-  _create "$v" "${rel}"
+  _create "$v" "${rel}" "${OLD_DOCKER_IMAGE}" "${OLD_TEMPLATE}"
 done
 
 # Create Dockerfiles for the new versions
 for v in $NEW_VERSIONS; do
   rel=$(<<<$v cut -d. -f1)
-  _create "$v" "${rel}"
+  _create "$v" "${rel}" "${DOCKER_IMAGE}" "${DEFAULT_TEMPLATE}"
 
   # Copy Dockerfile for latest version
   if [ "$v" == "$latest" ]; then
