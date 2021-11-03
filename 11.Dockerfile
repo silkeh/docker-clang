@@ -13,7 +13,7 @@ RUN apt-get -qq update && \
 ENV GPG_KEYS 09C4E7007CB2EFFB A2C794A986419D8A B4468DF4E95C63DC D23DD2C20DD88BA2 8F0871F202119294 0FC3042E345AD05D
 
 # Retrieve keys
-RUN gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys $GPG_KEYS
+RUN gpg --batch --keyserver keyserver.ubuntu.com --recv-keys $GPG_KEYS
 
 # Version info
 ENV LLVM_RELEASE 11
