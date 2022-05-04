@@ -17,7 +17,7 @@ RUN gpg --batch --keyserver keyserver.ubuntu.com --recv-keys $GPG_KEYS
 
 # Version info
 ENV LLVM_RELEASE 9
-ENV LLVM_VERSION 9.0.0
+ENV LLVM_VERSION 9.0.1
 
 # Install Clang and LLVM
 COPY install.sh .
