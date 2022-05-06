@@ -17,7 +17,7 @@ RUN gpg --batch --keyserver keyserver.ubuntu.com --recv-keys $GPG_KEYS
 
 # Version info
 ENV LLVM_RELEASE 8
-ENV LLVM_VERSION 8.0.1
+ENV LLVM_VERSION 8.0.0
 
 # Install Clang and LLVM
 COPY install.sh .
