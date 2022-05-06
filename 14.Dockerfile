@@ -17,7 +17,7 @@ RUN gpg --batch --keyserver keyserver.ubuntu.com --recv-keys $GPG_KEYS
 
 # Version info
 ENV LLVM_RELEASE 14
-ENV LLVM_VERSION 14.0.3
+ENV LLVM_VERSION 14.0.0
 
 # Install Clang and LLVM
 COPY install.sh .
