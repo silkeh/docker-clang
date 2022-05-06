@@ -94,7 +94,7 @@ case "${ARCH}:${LLVM_VERSION}" in
   ;;
 "x86_64:14.0."*)
   MIRROR="github"
-  PLATFORM="linux-gnu-ubuntu-20.04"
+  PLATFORM="linux-gnu-ubuntu-18.04"
   ;;
 esac
 
