@@ -126,7 +126,7 @@ gpg --batch --verify "${DOWNLOAD_FILE}.sig" "${DOWNLOAD_FILE}"
 
 # Install
 echo "Installing ${TARGET}"
-tar xf "${DOWNLOAD_FILE}"
+tar xf "${DOWNLOAD_FILE}" --no-same-owner
 cp -a "${TARGET}/"* "/usr/local/"
 
 # Cleanup
