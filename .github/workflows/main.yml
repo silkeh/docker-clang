@@ -24,20 +24,9 @@ jobs:
       matrix:
         version: ["3.3", "3.4", "3.4", "3.5", "3.7", "3.8", "3.9", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "dev"]
     steps:
-      - name: "Checkout Code"
+      - name: Checkout Code
         uses: actions/checkout@v3
-        with:
-          submodules: 'recursive'
-          fetch-depth: 0
-      - name: "Build images"
+      - name: Build image
         run: docker build . -f ${{ matrix.version }}.Dockerfile -t silkeh/clang:${{ matrix.version }}
-      - name: "Test build C"
-        run: docker run --rm -v "$PWD/tests:/tests" silkeh/clang:${{ matrix.version }} clang tests/test.c -o /tests/test
-      - name: "Test run C"
-        run: docker run --rm -v "$PWD/tests:/tests" silkeh/clang:${{ matrix.version }} ./tests/test
-      - name: "Test build CPP"
-        run: docker run --rm -v "$PWD/tests:/tests" silkeh/clang:${{ matrix.version }} clang++ tests/test.cpp -o /tests/test
-      - name: "Test run CPP"
-        run: docker run --rm -v "$PWD/tests:/tests" silkeh/clang:${{ matrix.version }} ./tests/test
-
-
+      - name: Run tests
+        run: docker run --rm -v "$PWD:/build" silkeh/clang:${{ matrix.version }} /build/tests/run.sh
