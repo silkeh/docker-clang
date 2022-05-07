@@ -43,6 +43,6 @@ for v in $NEW_VERSIONS; do
 
   # Copy Dockerfile for latest version
   if [ "$v" == "$latest" ]; then
-    cp "${rel}.Dockerfile" "./Dockerfile"
+    cp "${rel}.Dockerfile" "latest.Dockerfile"
   fi
 done
