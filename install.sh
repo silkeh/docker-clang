@@ -130,4 +130,4 @@ tar xf "${DOWNLOAD_FILE}"
 cp -a "${TARGET}/"* "/usr/local/"
 
 # Cleanup
-rm -rf "${DOWNLOAD_FILE}" "${TARGET:?}/" install.sh
+rm -rf "${DOWNLOAD_FILE}" "${DOWNLOAD_FILE}.sig" "${TARGET:?}/" install.sh
