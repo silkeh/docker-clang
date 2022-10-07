@@ -9,10 +9,12 @@ MIRROR="llvm"
 PLATFORM="linux-gnu"
 PACKAGE_BASE="clang+llvm"
 DOWNLOAD_TYPE="tar.xz"
+CHECK_SIG=true
 
 # Match architecture with LLVM naming
 case "${ARCH}" in
 "amd64") ARCH="x86_64";;
+"arm64") ARCH="aarch64";;
 esac
 
 # Match quirks
@@ -96,6 +98,13 @@ case "${ARCH}:${LLVM_VERSION}" in
   MIRROR="github"
   PLATFORM="linux-gnu-ubuntu-18.04"
   ;;
+"aarch64:15.0."*)
+  MIRROR="github"
+  CHECK_SIG=false
+  ;;
+"x86_64:15.0."*)
+  MIRROR="github"
+  ;;
 esac
 
 case "${MIRROR}" in
@@ -119,10 +128,12 @@ DOWNLOAD_FILE="llvm.${DOWNLOAD_TYPE}"
 # Download
 echo "Downloading ${DOWNLOAD}"
 wget -nv -O "${DOWNLOAD_FILE}"     "${MIRROR_URL}/${DOWNLOAD}"
-wget -nv -O "${DOWNLOAD_FILE}.sig" "${MIRROR_URL}/${DOWNLOAD}.sig"
 
-# Verify
-gpg --batch --verify "${DOWNLOAD_FILE}.sig" "${DOWNLOAD_FILE}"
+# Download .sig files and verify
+if [ "$CHECK_SIG" = true ]; then
+  wget -nv -O "${DOWNLOAD_FILE}.sig" "${MIRROR_URL}/${DOWNLOAD}.sig"
+  gpg --batch --verify "${DOWNLOAD_FILE}.sig" "${DOWNLOAD_FILE}"
+fi
 
 # Install
 echo "Installing ${TARGET}"
