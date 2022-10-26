@@ -1,0 +1,63 @@
+---
+# URLs of the Release files of the Debian repository.
+repo_urls:
+  default: https://apt.llvm.org/{debian_version}/dists/llvm-toolchain-{debian_version}-{version}/main/binary-{architecture}/Release  # yamllint disable-line
+  dev: http://apt.llvm.org/{debian_version}/dists/llvm-toolchain-{debian_version}/main/binary-{architecture}/Release  # yamllint disable-line
+
+# List of LLVM versions to build.
+versions:
+  - dev
+  - '3.6'
+  - '3.7'
+  - '3.8'
+  - '3.9'
+  - '4.0'
+  - '5.0'
+  - '6.0'
+  - '7'
+  - '8'
+  - '9'
+  - '10'
+  - '11'
+  - '12'
+  - '13'
+  - '14'
+  - '15'
+
+# Versions of Debian to build for.
+debian_versions:
+  - jessie
+  - stretch
+  - buster
+  - bullseye
+
+# Architectures supported by the Docker Debian images.
+debian_architectures:
+  default: [amd64, arm64, i386, s390x]
+  jessie: [amd64, i386]
+  stretch: [amd64, arm64, i386]
+  buster: [amd64, arm64, i386]
+
+# Mapping of Debian architectures to Docker architectures.
+docker_platforms:
+  amd64: linux/amd64
+  arm64: linux/arm64/v8
+  i386: linux/386
+  s390x: linux/s390x
+
+# Packages to install for LLVM versions.
+packages:
+  default: ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}', 'lld-{version}']
+  dev:     ['clang', 'clang-tidy', 'clang-format']
+  '3.6':   ['clang-{version}', 'clang-format-{version}']
+  '3.7':   ['clang-{version}', 'clang-format-{version}']
+  '3.8':   ['clang-{version}', 'clang-format-{version}']
+  '3.9':   ['clang-{version}', 'clang-format-{version}']
+  '4.0':   ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']
+  '5.0':   ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']
+  '6.0':   ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']
+  '7':     ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']
+  '8':     ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']
+  '9':     ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']
+  '10':    ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']
+  '11':    ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']

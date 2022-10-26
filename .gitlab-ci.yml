@@ -1,0 +1,28 @@
+---
+include:
+  - project: silkeh/pipelines
+    file:
+      - base.gitlab-ci.yml
+      - linters/shellcheck.gitlab-ci.yml
+      - linters/yamllint.gitlab-ci.yml
+
+generate:
+  stage: build
+  image: python:alpine
+  script:
+    - pip3 install -r requirements.txt
+    - python3 generate.py ci
+  artifacts:
+    paths:
+      - dockerfiles
+
+builds:
+  stage: build
+  needs: [generate]
+  variables:
+    PARENT_PIPELINE_ID: $CI_PIPELINE_ID
+  trigger:
+    strategy: depend
+    include:
+      - artifact: dockerfiles/gitlab-ci.yml
+        job: generate

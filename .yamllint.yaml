@@ -1,0 +1,7 @@
+---
+extends: default
+rules:
+  colons:
+    max-spaces-after: 10
+  line-length:
+    max: 100
