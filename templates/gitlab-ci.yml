@@ -1,4 +1,7 @@
 ---
+default:
+  interruptible: true
+
 .docker:
   stage: build
   image: docker:stable
