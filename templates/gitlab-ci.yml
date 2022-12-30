@@ -14,7 +14,6 @@
     - docker info
     - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker build -t $CI_REGISTRY_IMAGE:$IMAGE_TAG -f dockerfiles/$IMAGE_TAG.Dockerfile .
-    - docker run -t -v $PWD/tests:/tests $CI_REGISTRY_IMAGE:$IMAGE_TAG /tests/run.sh $CLANG_VERSION
     - docker push $CI_REGISTRY_IMAGE:$IMAGE_TAG
 
 .alias:

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
 int main() {
-  printf("hello world\n");
+  printf("C compiled successfully!\n");
   return 0;
 }

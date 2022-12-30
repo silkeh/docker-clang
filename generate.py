@@ -91,10 +91,9 @@ class Builder:
 
     def build(self, name: str):
         for dockerfile in self._get_dockerfiles():
-            print(f"Building and testing: {dockerfile.tag}")
+            print(f"Building: {dockerfile.tag}")
             dockerfile.create()
             dockerfile.build(name)
-            dockerfile.test(name)
 
     def buildx(self, name: str):
         for dockerfile in self._get_dockerfiles():
