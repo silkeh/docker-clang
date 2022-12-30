@@ -20,7 +20,16 @@ then
 fi
 
 # Compile C
-clang test.c -o test && ./test
+clang test.c -o test
+./test
 
 # Compile C++
-clang++ test.cpp -o test && ./test
+clang++ test.cpp -o test
+./test
+
+if grep -q 'Debian GNU/Linux 1' /etc/issue
+then
+    echo "Testing LTO"
+    clang++ test.cpp -o test -flto=thin
+    ./test
+fi
