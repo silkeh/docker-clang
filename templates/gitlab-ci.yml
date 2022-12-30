@@ -50,5 +50,8 @@
     DOCKER_HOST: tcp://docker:2375
     DOCKER_DRIVER: overlay2
   script:
+    - docker info
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker pull $CI_REGISTRY_IMAGE:$SRC_TAG
     - docker tag $CI_REGISTRY_IMAGE:$SRC_TAG $CI_REGISTRY_IMAGE:$DST_TAG
+    - docker push $CI_REGISTRY_IMAGE:$DST_TAG
