@@ -20,21 +20,26 @@
 .docker-buildx:
   extends: .docker
   image: jdrouet/docker-with-buildx:stable
+  cache:
+    key: buildx-$IMAGE_TAG
+    paths: [.buildx-cache]
   script:
     - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
     - docker buildx create --driver=docker-container --use
-    - docker buildx build . --target=test
+    - docker buildx build .
+        --pull
+        --target=test
+        --cache-from type=local,src=.buildx-cache
         --cache-to type=local,dest=.buildx-cache
         --file dockerfiles/$IMAGE_TAG.Dockerfile
         --platform $PLATFORMS
-    - docker buildx build . --target=final --push
+    - docker buildx build . --target=final
+        --pull
+        --push
         --tag $CI_REGISTRY_IMAGE:$IMAGE_TAG
         --cache-from type=local,src=.buildx-cache
         --file dockerfiles/$IMAGE_TAG.Dockerfile
         --platform $PLATFORMS
-  cache:
-    key: buildx
-    paths: [.buildx-cache]
 
 .alias:
   stage: build
