@@ -1,4 +1,4 @@
-FROM debian:{debian_version}-slim as final
+FROM debian:{debian_version}-slim as intermediate
 
 # Install dependencies
 RUN apt-get -qq update; \
@@ -17,10 +17,10 @@ RUN echo "deb http://apt.llvm.org/{debian_version}/ llvm-toolchain-{debian_versi
     for f in /usr/lib/llvm-{version}/bin/*; do ln -sf "$f" /usr/bin; done && \
     rm -rf /var/lib/apt/lists/*
 
-FROM final as test
+FROM intermediate as test
 
 COPY tests /tests
 
 RUN /tests/run.sh {version}
 
-FROM final
+FROM intermediate as final

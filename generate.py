@@ -156,6 +156,9 @@ class Dockerfile:
 
     def buildx(self, name: str):
         r = subprocess.run(['docker', 'buildx', 'build', '.',
+                            '--target', 'test',
+                            '--cache-from', 'type=local,src=/tmp/buildx',
+                            '--cache-to', 'type=local,dest=/tmp/buildx,mode=max',
                             '--file', self._path,
                             '--platform', ','.join(self.platforms),
                             '--tag', f'{name}:{self.tag}'])
@@ -228,16 +231,24 @@ class GitLabCI:
     def add_dockerfiles(self, dockerfiles):
         for dockerfile in dockerfiles:
             self.data[dockerfile.tag] = {
-                'extends': '.docker',
+                'extends': GitLabCI._extends(dockerfile),
                 'variables': {
                     'IMAGE_TAG': dockerfile.tag,
-                    'CLANG_VERSION': dockerfile.version
+                    'CLANG_VERSION': dockerfile.version,
+                    'PLATFORMS': ','.join(dockerfile.platforms),
                 }
             }
 
     def save(self):
         with open(os.path.join('dockerfiles', 'gitlab-ci.yml'), 'w') as f:
             f.write(yaml.dump(self.data))
+
+    @staticmethod
+    def _extends(dockerfile):
+        if dockerfile.platforms == ['linux/amd64']:
+            return '.docker'
+
+        return '.docker-buildx'
 
 
 if __name__ == '__main__':
