@@ -47,15 +47,15 @@ class Builder:
     def _architectures(self, debian_version):
         return get(self.debian_architectures, debian_version)
 
-    def _platforms(self, debian_version):
-        return [self.docker_platforms[a] for a in self._architectures(debian_version)]
+    def _platforms(self, architectures):
+        return [self.docker_platforms[a] for a in architectures]
 
     def _packages(self, version):
         return get(self.packages, version)
 
-    def _new_dockerfile(self, version, debian_version):
+    def _new_dockerfile(self, version, debian_version, architectures):
         d = Dockerfile(version, debian_version,
-                       self._platforms(debian_version), self._packages(version))
+                       self._platforms(architectures), self._packages(version))
 
         self._dockerfiles.append(d)
 
@@ -79,7 +79,7 @@ class Builder:
                 if len(architectures) == 0:
                     continue
 
-                yield self._new_dockerfile(version, debian_version)
+                yield self._new_dockerfile(version, debian_version, architectures)
 
     def dockerfiles(self):
         return list(self._get_dockerfiles())
