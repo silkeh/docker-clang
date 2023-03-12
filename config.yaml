@@ -1,8 +1,14 @@
 ---
-# URLs of the Release files of the Debian repository.
-repo_urls:
-  default: https://apt.llvm.org/{debian_version}/dists/llvm-toolchain-{debian_version}-{version}/main/binary-{architecture}/Release  # yamllint disable-line
-  dev: http://apt.llvm.org/{debian_version}/dists/llvm-toolchain-{debian_version}/main/binary-{architecture}/Release  # yamllint disable-line
+# Possible URLs of the Release files of the Debian repository.
+repo_url: https://apt.llvm.org/{debian_version}
+repo_component: main
+repo_distributions:
+  default:
+    - llvm-toolchain-{debian_version}-{version}
+    - llvm-toolchain-{version}
+  dev:
+    - llvm-toolchain-{debian_version}
+    - llvm-toolchain
 
 # List of LLVM versions to build.
 versions:

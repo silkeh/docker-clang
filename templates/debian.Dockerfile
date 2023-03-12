@@ -10,10 +10,10 @@ RUN apt-get -qq update; \
 RUN wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
 
 # Install
-RUN echo "deb http://apt.llvm.org/{debian_version}/ llvm-toolchain-{debian_version}-{version} main" \
+RUN echo "deb {repo_url} {repo_distribution} {repo_component}" \
         > /etc/apt/sources.list.d/llvm.list; \
     apt-get -qq update && \
-    apt-get install -qqy -t llvm-toolchain-{debian_version}-{version} {packages} && \
+    apt-get install -qqy -t {repo_distribution} {packages} && \
     for f in /usr/lib/llvm-{version}/bin/*; do ln -sf "$f" /usr/bin; done && \
     rm -rf /var/lib/apt/lists/*
 

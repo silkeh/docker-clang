@@ -8,7 +8,13 @@ import argparse
 import subprocess
 
 
-def replace(s, version, debian_version, architecture='', packages=''):
+def replace(s, version, debian_version, architecture='', packages='', repo=None):
+    if repo is not None:
+        s = s.\
+            replace('{repo_url}', repo.url).\
+            replace('{repo_distribution}', repo.distribution).\
+            replace('{repo_component}', repo.component)
+
     return s.\
         replace('{packages}', packages).\
         replace('{version}', version).\
@@ -20,22 +26,28 @@ def get(d, key):
     return d.get(key, d['default'])
 
 
-class Builder:
-    def __init__(self, config):
-        self.repo_urls = config['repo_urls']
-        self.versions = config['versions']
-        self.packages = config['packages']
-        self.debian_architectures = config['debian_architectures']
-        self.debian_versions = config['debian_versions']
-        self.docker_platforms = config['docker_platforms']
-        self._dockerfiles = []
+class Replacer:
+    def __init__(self, version, debian_version, architecture='', packages=''):
+        self.version = version
+        self.debian_version = debian_version
+        self.architecture = architecture
+        self.packages = packages
 
-    def _repo_url(self, version):
-        return get(self.repo_urls, version)
+    def replace(self, s):
+        return replace(s, self.version, self.debian_version, self.architecture, self.packages)
 
-    def _repo_exists(self, version, debian_version, architecture) -> bool:
-        url = replace(self._repo_url(version), version, debian_version, architecture)
-        res = requests.get(url)
+
+class DebianRepo:
+    def __init__(self, url, distribution, component):
+        self.url = url
+        self.distribution = distribution
+        self.component = component
+
+    def architectures(self, architectures):
+        return [a for a in architectures if self._exists(a)]
+
+    def _exists(self, architecture):
+        res = requests.get(self._release_url(architecture))
         if res.status_code == 200:
             return True
 
@@ -43,6 +55,37 @@ class Builder:
             return False
 
         raise Exception(f'Unexpected status code: {res.status_code}')
+
+    def _release_url(self, architecture):
+        return f'{self.url}/dists/{self.distribution}/{self.component}/binary-{architecture}/Release'
+
+
+class Builder:
+    def __init__(self, config):
+        self.repo_url = config['repo_url']
+        self.repo_distributions = config['repo_distributions']
+        self.repo_component = config['repo_component']
+        self.versions = config['versions']
+        self.packages = config['packages']
+        self.debian_architectures = config['debian_architectures']
+        self.debian_versions = config['debian_versions']
+        self.docker_platforms = config['docker_platforms']
+        self._dockerfiles = []
+
+    def _repo_distributions(self, version):
+        return get(self.repo_distributions, version)
+
+    def _find_repo(self, version, debian_version, architectures):
+        for distribution in self._repo_distributions(version):
+            repl = Replacer(version, debian_version)
+            repo = DebianRepo(repl.replace(self.repo_url),
+                              repl.replace(distribution),
+                              repl.replace(self.repo_component))
+            arch = repo.architectures(architectures)
+            if len(arch) > 0:
+                return repo, arch
+
+        return None, None
 
     def _architectures(self, debian_version):
         return get(self.debian_architectures, debian_version)
@@ -53,8 +96,8 @@ class Builder:
     def _packages(self, version):
         return get(self.packages, version)
 
-    def _new_dockerfile(self, version, debian_version, architectures):
-        d = Dockerfile(version, debian_version,
+    def _new_dockerfile(self, version, debian_version, repo, architectures):
+        d = Dockerfile(version, debian_version, repo,
                        self._platforms(architectures), self._packages(version))
 
         self._dockerfiles.append(d)
@@ -72,14 +115,15 @@ class Builder:
             for debian_version in self.debian_versions:
                 if version == 'dev' and debian_version in ['jessie', 'stretch']:
                     continue
-
-                architectures = [a for a in self._architectures(debian_version)
-                                 if self._repo_exists(version, debian_version, a)]
-
-                if len(architectures) == 0:
+                if debian_version == 'unstable' and version != 'dev' and version not in self.versions[-2:]:
                     continue
 
-                yield self._new_dockerfile(version, debian_version, architectures)
+                repo, architectures = self._find_repo(version, debian_version,
+                                                      self._architectures(debian_version))
+                if repo is None:
+                    continue
+
+                yield self._new_dockerfile(version, debian_version, repo, architectures)
 
     def dockerfiles(self):
         return list(self._get_dockerfiles())
@@ -125,9 +169,10 @@ class Builder:
 
 
 class Dockerfile:
-    def __init__(self, version, debian_version, platforms, packages):
+    def __init__(self, version, debian_version, repo, platforms, packages):
         self.version = version
         self.debian_version = debian_version
+        self.repo = repo
         self.platforms = platforms
         self.packages = packages
 
@@ -137,7 +182,8 @@ class Dockerfile:
                 self._template(),
                 self.version,
                 self.debian_version,
-                packages=' '.join(self.packages)
+                packages=' '.join(self.packages),
+                repo=self.repo
             ))
 
     def build(self, name: str):
