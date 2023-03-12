@@ -39,6 +39,7 @@ debian_versions:
 # excluded because the repository does not contain the correct packages.
 debian_architectures:
   default: [amd64, arm64, s390x]
+  unstable: [amd64]
   jessie: [amd64]
   stretch: [amd64]
   buster: [amd64]
