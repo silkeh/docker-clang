@@ -146,13 +146,22 @@ class Builder:
             dockerfile.buildx(name)
 
     def _latest(self):
-        return list(self._get_dockerfiles())[-1].tag
+        dockerfiles = list(self._get_dockerfiles())
+        if len(dockerfiles) == 0:
+            raise Exception('No docker files')
+
+        return dockerfiles[-1].tag
 
     def _latest_version(self, v: str):
-        return [d for d in self._get_dockerfiles() if d.version == v][-1].tag
+        dockerfiles = [d for d in self._get_dockerfiles() if d.version == v]
+        if len(dockerfiles) == 0:
+            return None
+
+        return dockerfiles[-1].tag
 
     def _latest_versions(self):
-        return {v: self._latest_version(v) for v in self.versions}
+        versions = {v: self._latest_version(v) for v in self.versions}
+        return {v: l for v, l in versions.items() if l is not None}
 
     def aliases(self):
         return self._latest_versions() | {
