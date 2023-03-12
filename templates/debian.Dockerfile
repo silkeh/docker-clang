@@ -6,12 +6,11 @@ RUN apt-get -qq update; \
         gnupg2 wget ca-certificates apt-transport-https \
         autoconf automake cmake dpkg-dev file make patch libc6-dev
 
-# Set repository key
-RUN wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
-
-# Install
+# Install LLVM
 RUN echo "deb {repo_url} {repo_distribution} {repo_component}" \
-        > /etc/apt/sources.list.d/llvm.list; \
+        > /etc/apt/sources.list.d/llvm.list && \
+    wget -qO /etc/apt/trusted.gpg.d/llvm.asc \
+        https://apt.llvm.org/llvm-snapshot.gpg.key && \
     apt-get -qq update && \
     apt-get install -qqy -t {repo_distribution} {packages} && \
     for f in /usr/lib/llvm-{version}/bin/*; do ln -sf "$f" /usr/bin; done && \
