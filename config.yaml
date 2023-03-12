@@ -28,9 +28,11 @@ versions:
 
 # Versions of Debian to build for.
 debian_versions:
+  - unstable
   - stretch
   - buster
   - bullseye
+  - bookworm
 
 # Architectures supported by the Docker Debian images and the LLVM repositories.
 # Support per LLVM version is detected automatically, but some architectures have been
