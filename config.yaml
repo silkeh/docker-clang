@@ -52,17 +52,43 @@ docker_platforms:
 
 # Packages to install for LLVM versions.
 packages:
-  default: ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}', 'lld-{version}']
-  dev:     ['clang', 'clang-tidy', 'clang-format']
-  '3.6':   ['clang-{version}', 'clang-format-{version}']
-  '3.7':   ['clang-{version}', 'clang-format-{version}']
-  '3.8':   ['clang-{version}', 'clang-format-{version}']
-  '3.9':   ['clang-{version}', 'clang-format-{version}']
-  '4.0':   ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']
-  '5.0':   ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']
-  '6.0':   ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']
-  '7':     ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']
-  '8':     ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']
-  '9':     ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']
-  '10':    ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']
-  '11':    ['clang-{version}', 'clang-tidy-{version}', 'clang-format-{version}']
+  default:
+    - clang-{version}
+    - clang-tidy-{version}
+    - clang-format-{version}
+    - lld-{version}
+    - libc++-{version}-dev
+    - libc++abi-{version}-dev
+  dev:
+    - clang
+    - clang-tidy
+    - clang-format
+    - lld
+    - libc++-dev
+    - libc++abi-dev
+  '3.6': &3
+    - clang-{version}
+    - clang-format-{version}
+    - libc++-{version}-dev
+    - libc++abi-{version}-dev
+  '3.7': *3
+  '3.8': *3
+  '3.9': *3
+  '4.0': &4
+    - clang-{version}
+    - clang-tidy-{version}
+    - clang-format-{version}
+    - libc++-{version}-dev
+    - libc++abi-{version}-dev
+  '5.0': *4
+  '6.0': &6
+    - clang-{version}
+    - clang-tidy-{version}
+    - clang-format-{version}
+    - libc++-{version}-dev
+    - libc++abi-{version}-dev
+  '7': *6
+  '8': *6
+  '9': *6
+  '10': *6
+  '11': *6
