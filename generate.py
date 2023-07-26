@@ -61,6 +61,8 @@ class DebianRepo:
 
 
 class Builder:
+    UNSTABLE = ['unstable']
+
     def __init__(self, config):
         self.repo_url = config['repo_url']
         self.repo_distributions = config['repo_distributions']
@@ -113,17 +115,31 @@ class Builder:
 
         for version in self.versions:
             for debian_version in self.debian_versions:
-                if version == 'dev' and debian_version in ['jessie', 'stretch']:
-                    continue
-                if debian_version == 'unstable' and version != 'dev' and version not in self.versions[-2:]:
+                if self._skip_version(version, debian_version):
+                    print(f'Skipping: {version}-{debian_version}')
                     continue
 
                 repo, architectures = self._find_repo(version, debian_version,
                                                       self._architectures(debian_version))
                 if repo is None:
+                    print(f'No repo: {version}-{debian_version}')
                     continue
 
                 yield self._new_dockerfile(version, debian_version, repo, architectures)
+
+    def _skip_version(self, version, debian_version):
+        return \
+            self._skip_dev_release(version, debian_version) or \
+            self._skip_unstable_release(version, debian_version)
+
+    def _skip_dev_release(self, version, debian_version):
+        return version == 'dev' and \
+            debian_version not in (self.UNSTABLE + self.debian_versions[-1:])
+
+    def _skip_unstable_release(self, version, debian_version):
+        return version != 'dev' and \
+            version not in self.versions[-2:] and \
+            debian_version in self.UNSTABLE
 
     def dockerfiles(self):
         return list(self._get_dockerfiles())
