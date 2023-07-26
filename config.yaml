@@ -30,6 +30,7 @@ versions:
 # Versions of Debian to build for.
 debian_versions:
   - unstable
+  - trixie
   - buster
   - bullseye
   - bookworm
