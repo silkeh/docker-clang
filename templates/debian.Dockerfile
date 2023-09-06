@@ -14,6 +14,8 @@ RUN echo "deb {repo_url} {repo_distribution} {repo_component}" \
     apt-get -qq update && \
     apt-get install -qqy -t {repo_distribution} {packages} && \
     for f in /usr/lib/llvm-{version}/bin/*; do ln -sf "$f" /usr/bin; done && \
+    ln -s clang /usr/bin/cc && \
+    ln -s clang++ /usr/bin/g++ && \
     rm -rf /var/lib/apt/lists/*
 
 FROM intermediate as test

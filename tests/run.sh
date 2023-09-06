@@ -20,12 +20,12 @@ then
 fi
 
 # Compile C
-clang test.c -o test
-./test
+cc test.c -o test && ./test
+clang test.c -o test && ./test
 
 # Compile C++
-clang++ test.cpp -o test
-./test
+g++ test.cpp -o test && ./test
+clang++ test.cpp -o test && ./test
 
 if grep -q 'Debian GNU/Linux 1' /etc/issue
 then
