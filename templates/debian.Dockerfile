@@ -13,7 +13,7 @@ RUN echo "deb {repo_url} {repo_distribution} {repo_component}" \
         https://apt.llvm.org/llvm-snapshot.gpg.key && \
     apt-get -qq update && \
     apt-get install -qqy -t {repo_distribution} {packages} && \
-    for f in /usr/lib/llvm-{version}/bin/*; do ln -sf "$f" /usr/bin; done && \
+    for f in /usr/lib/llvm-*/bin/*; do ln -sf "$f" /usr/bin; done && \
     ln -sf clang /usr/bin/cc && \
     ln -sf clang /usr/bin/c89 && \
     ln -sf clang /usr/bin/c99 && \
