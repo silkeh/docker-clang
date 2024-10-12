@@ -21,10 +21,10 @@ RUN echo "deb {repo_url} {repo_distribution} {repo_component}" \
     ln -sf clang++ /usr/bin/g++ && \
     rm -rf /var/lib/apt/lists/*
 
-FROM intermediate as test
+FROM intermediate AS test
 
 COPY tests /tests
 
 RUN /tests/run.sh {version}
 
-FROM intermediate as final
+FROM intermediate AS final
