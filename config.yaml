@@ -46,6 +46,7 @@ debian_architectures:
   default: [amd64, arm64, s390x]
   unstable: [amd64]
   buster: [amd64]
+  bullseye: [amd64, arm64]
 
 # Mapping of Debian architectures to Docker architectures.
 docker_platforms:
