@@ -7,10 +7,14 @@ All Docker images are generated in GitLab CI, and can be found [here][artifacts]
 The `latest` tag contains the latest stable LLVM version on the latest stable Debian version.
 The `dev` tag contains a nightly build of the unstable branch from <https://apt.llvm.org/>.
 
+Images can be pulled from [Docker Hub], [GitHub] and [GitLab].
+
 The versions and contents of the Debian packages are generated based on [config.yaml][],
 in which new versions of LLVM and Debian can be added.
 
 [config.yaml]: https://gitlab.com/silkeh/docker-clang/-/blob/master/config.yaml
 [pipeline]: https://gitlab.com/silkeh/docker-clang/pipelines/master/latest
 [artifacts]: https://gitlab.com/silkeh/docker-clang/-/jobs/artifacts/master/browse/dockerfiles?job=generate
-
+[Docker Hub]: https://hub.docker.com/r/silkeh/clang/
+[GitLab]: https://gitlab.com/slxh/docker/clang/container_registry/3598362
+[GitHub]: https://github.com/-/silkeh/packages/container/package/docker

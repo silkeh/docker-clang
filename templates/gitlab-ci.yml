@@ -15,7 +15,7 @@ default:
     DOCKER_DRIVER: overlay2
   before_script:
     - docker info
-    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+    - echo $CI_JOB_TOKEN | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
   script:
     - docker build -t $CI_REGISTRY_IMAGE:$IMAGE_TAG -f dockerfiles/$IMAGE_TAG.Dockerfile .
     - docker push $CI_REGISTRY_IMAGE:$IMAGE_TAG
@@ -54,7 +54,7 @@ default:
     DOCKER_DRIVER: overlay2
   script:
     - docker info
-    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+    - echo $CI_JOB_TOKEN | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
     - docker pull $CI_REGISTRY_IMAGE:$SRC_TAG
     - docker tag $CI_REGISTRY_IMAGE:$SRC_TAG $CI_REGISTRY_IMAGE:$DST_TAG
     - docker push $CI_REGISTRY_IMAGE:$DST_TAG
@@ -69,7 +69,7 @@ default:
     DOCKER_DRIVER: overlay2
   script:
     - docker info
-    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_TOKEN $DOCKER_REGISTRY
+    - echo $DOCKER_REGISTRY_TOKEN | docker login -u $DOCKER_REGISTRY_USER --password-stdin $DOCKER_REGISTRY
     - docker pull $CI_REGISTRY_IMAGE:$SRC_TAG
     - docker tag $CI_REGISTRY_IMAGE:$SRC_TAG $DOCKER_REGISTRY_IMAGE:$DST_TAG
     - docker push $DOCKER_REGISTRY_IMAGE:$DST_TAG
