@@ -72,6 +72,8 @@ class Builder:
         self.debian_architectures = config['debian_architectures']
         self.debian_versions = config['debian_versions']
         self.docker_platforms = config['docker_platforms']
+        self.environments = config['environments']
+        self.environment = self.environments[0]
         self._dockerfiles = []
 
     def _repo_distributions(self, version):
@@ -184,6 +186,14 @@ class Builder:
             'latest': self._latest(),
         }
 
+    def environment_aliases(self):
+        tags = [d.tag for d in builder.dockerfiles()]
+        aliases = [tag for tag in builder.aliases()]
+
+        return [(env, tag)
+                for tag in (tags + aliases)
+                for env in self.environments]
+
     def tag_aliases(self, name: str):
         for alias, tag in self.aliases().items():
             print(f'Tagging {tag} as {alias}')
@@ -283,9 +293,10 @@ class GitLabCI:
     def __init__(self, data):
         self.data = data
 
-    def generate(self, dockerfiles, aliases):
+    def generate(self, dockerfiles, aliases, env_aliases):
         self.add_dockerfiles(dockerfiles)
         self.add_aliases(aliases)
+        self.add_environments(env_aliases)
         self.save()
 
     def add_aliases(self, aliases):
@@ -307,6 +318,20 @@ class GitLabCI:
                     'IMAGE_TAG': dockerfile.tag,
                     'CLANG_VERSION': dockerfile.version,
                     'PLATFORMS': ','.join(dockerfile.platforms),
+                }
+            }
+
+    def add_environments(self, env_aliases):
+        for env, tag in env_aliases:
+            self.data[f"{tag} ({env})"] = {
+                'extends': '.environment-alias',
+                'needs': [tag],
+                'environment': {
+                    'name': env,
+                },
+                'variables': {
+                    'SRC_TAG': tag,
+                    'DST_TAG': tag,
                 }
             }
 
@@ -357,7 +382,8 @@ if __name__ == '__main__':
         case "ci":
             builder.generate()
             gitlab_ci.generate(builder.dockerfiles(),
-                               builder.aliases())
+                               builder.aliases(),
+                               builder.environment_aliases())
         case "build":
             builder.build(args.image)
             builder.tag_aliases(args.image)

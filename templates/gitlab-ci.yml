@@ -58,3 +58,18 @@ default:
     - docker pull $CI_REGISTRY_IMAGE:$SRC_TAG
     - docker tag $CI_REGISTRY_IMAGE:$SRC_TAG $CI_REGISTRY_IMAGE:$DST_TAG
     - docker push $CI_REGISTRY_IMAGE:$DST_TAG
+
+.environment-alias:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_DRIVER: overlay2
+  script:
+    - docker info
+    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_TOKEN $DOCKER_REGISTRY
+    - docker pull $CI_REGISTRY_IMAGE:$SRC_TAG
+    - docker tag $CI_REGISTRY_IMAGE:$SRC_TAG $DOCKER_REGISTRY_IMAGE:$DST_TAG
+    - docker push $DOCKER_REGISTRY_IMAGE:$DST_TAG

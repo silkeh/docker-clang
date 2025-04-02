@@ -1,4 +1,8 @@
 ---
+# Alternate environments to push to.
+environments:
+  - Docker
+
 # Possible URLs of the Release files of the Debian repository.
 repo_url: https://apt.llvm.org/{debian_version}
 repo_component: main
