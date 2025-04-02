@@ -69,7 +69,9 @@ default:
     DOCKER_DRIVER: overlay2
   script:
     - docker info
-    - echo $DOCKER_REGISTRY_TOKEN | docker login -u $DOCKER_REGISTRY_USER --password-stdin $DOCKER_REGISTRY
+    - echo $DOCKER_REGISTRY_TOKEN | docker login
+      -u $DOCKER_REGISTRY_USER
+      --password-stdin $DOCKER_REGISTRY
     - docker pull $CI_REGISTRY_IMAGE:$SRC_TAG
     - docker tag $CI_REGISTRY_IMAGE:$SRC_TAG $DOCKER_REGISTRY_IMAGE:$DST_TAG
     - docker push $DOCKER_REGISTRY_IMAGE:$DST_TAG
