@@ -17,4 +17,4 @@ in which new versions of LLVM and Debian can be added.
 [artifacts]: https://gitlab.com/silkeh/docker-clang/-/jobs/artifacts/master/browse/dockerfiles?job=generate
 [Docker Hub]: https://hub.docker.com/r/silkeh/clang/
 [GitLab]: https://gitlab.com/slxh/docker/clang/container_registry/3598362
-[GitHub]: https://github.com/-/silkeh/packages/container/package/docker
+[GitHub]: https://github.com/-/silkeh/packages/container/package/clang
