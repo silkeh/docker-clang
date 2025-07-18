@@ -40,7 +40,6 @@ versions:
 debian_versions:
   - unstable
   - trixie
-  - buster
   - bullseye
   - bookworm
 
