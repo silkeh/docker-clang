@@ -45,6 +45,7 @@ default:
 
 .alias:
   stage: build
+  image: docker:cli
   services:
     - docker:dind
   variables:
@@ -59,6 +60,7 @@ default:
 
 .environment-alias:
   stage: build
+  image: docker:cli
   services:
     - docker:dind
   variables:
