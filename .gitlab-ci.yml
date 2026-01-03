@@ -1,6 +1,6 @@
 ---
 include:
-  - project: silkeh/pipelines
+  - project: slxh/pipelines
     file:
       - base.gitlab-ci.yml
       - linters/shellcheck.gitlab-ci.yml
