@@ -22,7 +22,7 @@ default:
 
 .docker-buildx:
   extends: .docker
-  image: jdrouet/docker-with-buildx:stable
+  image: docker:cli
   cache:
     key: buildx-$IMAGE_TAG
     paths: [.buildx-cache]
