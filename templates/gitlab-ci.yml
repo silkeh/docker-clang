@@ -4,7 +4,7 @@ default:
 
 .docker:
   stage: build
-  image: docker:stable
+  image: docker:cli
   needs:
     - pipeline: $PARENT_PIPELINE_ID
       job: generate
@@ -22,7 +22,6 @@ default:
 
 .docker-buildx:
   extends: .docker
-  image: docker:cli
   cache:
     key: buildx-$IMAGE_TAG
     paths: [.buildx-cache]
@@ -46,7 +45,6 @@ default:
 
 .alias:
   stage: build
-  image: docker:stable
   services:
     - docker:dind
   variables:
@@ -61,7 +59,6 @@ default:
 
 .environment-alias:
   stage: build
-  image: docker:stable
   services:
     - docker:dind
   variables:
