@@ -35,6 +35,7 @@ versions:
   - '18'
   - '19'
   - '20'
+  - '21'
 
 # Versions of Debian to build for.
 debian_versions:
