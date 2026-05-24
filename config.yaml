@@ -40,9 +40,9 @@ versions:
 # Versions of Debian to build for.
 debian_versions:
   - unstable
-  - trixie
   - bullseye
   - bookworm
+  - trixie
 
 # Architectures supported by the Docker Debian images and the LLVM repositories.
 # Support per LLVM version is detected automatically, but some architectures have been
