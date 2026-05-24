@@ -71,6 +71,7 @@ class Builder:
         self.packages = config['packages']
         self.debian_architectures = config['debian_architectures']
         self.debian_versions = config['debian_versions']
+        self.debian_dev_versions = config['debian_dev_versions']
         self.docker_platforms = config['docker_platforms']
         self.environments = config['environments']
         self.environment = self.environments[0]
@@ -136,7 +137,7 @@ class Builder:
 
     def _skip_dev_release(self, version, debian_version):
         return version == 'dev' and \
-            debian_version not in (self.UNSTABLE + self.debian_versions[-1:])
+            debian_version not in self.debian_dev_versions
 
     def _skip_unstable_release(self, version, debian_version):
         return version != 'dev' and \

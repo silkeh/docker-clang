@@ -44,6 +44,13 @@ debian_versions:
   - bookworm
   - trixie
 
+# Versions of Debian to build `dev` version for.
+debian_dev_versions:
+  - unstable
+  - bullseye
+  - bookworm
+  - trixie
+
 # Architectures supported by the Docker Debian images and the LLVM repositories.
 # Support per LLVM version is detected automatically, but some architectures have been
 # excluded because the repository does not contain the correct packages.
